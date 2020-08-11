@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html class="ie"><![endif]-->
+<!--[if IE 9]><html class="ie"><![endif]-->
+<!--[if (IE 10) | (!IE)]><html><![endif]-->
+
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>创建子账户</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" href="css/goodebt.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myEb.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+	<script src="js/header.js"></script>
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="user-page moblie-pages-item">
+<!-- 公共导航栏 -->
+<header class="header">
+	<div class="container">
+        <div class="row">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <div class="row">
+                        <!--导航条头部:LOGO-->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="userPane.html">GoodPool.Top</a>
+                        </div>
+                        <!--导航菜单-->
+                        <ul class="nav navbar-nav">
+                            <li><a href="userPane.html">用户面板</a></li>
+                            <li><a href="machine.html">矿机</a></li>
+                            <li><a href="Info.html">统计</a></li>
+                            <!-- <li><a href="#">工具</a></li>
+                            <li><a href="#">客服</a></li>
+                            <li><a href="#">帮助</a></li> -->
+                        </ul>
+                        <!--登录账户以及设置-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--登录账户下拉-->
+                            <li class="dropdown">
+                                <a id="subAccount" class="active" href="javascript:void(0);"><span id="account" ></span><span class="caret"></span></a>
+                                <div id="subAccountMeanu" class="bg-white popover" style="width:360px;"></div></li>
+                            <!--设置下拉菜单-->
+                            <li class="dropdown">
+                                <a id="setBtn" href="javascript:void(0);">设置</a>
+                                <div id="setMeanu" class="bg-white popover text-center" style="width:150px;"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="main-body">
+    <!--创建子账户-->
+    <div class="container">
+        <div class="row">
+            <div class="panel create-box">
+               <div class="panel-heading">
+                   <h3 class="panel-title"><a href="javascript:history.go(-1)" class="glyphicon glyphicon-menu-left moblie-back"></a>创建子账户</h3>
+               </div>
+	            <form>
+                	<!--选择币种-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">选择币种</b>
+	                    <div style="margin:20px auto;">
+	                    <!-- 
+	                        <input type="radio" name="currencyType" data-labelauty="BTC" value="0005001"/> -->
+	                        <input type="radio" name="currencyType" data-labelauty="BCH" value="0005002" checked="checked"/>
+	                        <p class="help-block text-muted" style="margin-top:10px;">GoodPool.Top现已支持比特币(BTC)、比特币现金(BCH)挖矿，更多币种即将推出，敬请期待。</p>
+	                    </div>
+	                </div>
+	                <!--子账户名称-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">设置子账户名称</b>
+	                    <div class="">
+	                        <div class="form-group">
+	                            <input id="accountName" required name="accountName" type="text" class="form-control create-input" placeholder="请输入子账户名称"/>
+	                        </div>
+	                        <p class="help-block text-muted">您设置的子账户将绑定于所选地区。您最多可设置500个子账户。这一子账户名称加上矿机编号即为矿机设置页的矿机名（worker name），如: "zizhanghu.001"，"zizhanghu.002"。</p>
+	                        <p class="help-block text-muted">* 请注意，同一子账户不支持跨地区挖矿，您创建于当前地区的子账户在其他区域不存在。如果您在其他地区拥有矿机，请重新创建对应地区的子账户。</p>
+	                    </div>
+	                </div>
+	                <!--填写提币地址-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">填写提币地址（选填）</b>
+	                    <div class="">
+	                        <div class="form-group">
+	                            <input type="text" id="address" name="btcAddress" class="form-control create-input" placeholder="请输入收款地址"/>
+	                        </div>
+	                    </div>
+	                </div>
+	                <!--保存并且提交登陆-->
+	                <div class="panel-body luckyCoins">
+	                    <button type="button" id="creatAccount"  class="btn btn-primary" onclick="checkCreatAccount()">保存并登陆</button>
+	                    <p id="codeError" class="help-block text-danger"></p>
+	                    <p class="text-warning" style="margin-top:15px;">注：比特币现金（BCH）旧格式地址与比特币（BTC）地址相似，请谨慎填写，以免造成丢币损失。</p>
+	                </div>
+	            </form>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-ft ft-fixed">
+    <div class="container">
+        <div class="row">
+            <div class="footBox">
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>关于BTC.com</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/btc.js"></script>
+<script>
+    $(function(){
+        $(':input').labelauty();
+    });
+</script>
+</body>
+</html>

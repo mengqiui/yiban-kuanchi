@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html class="ie"><![endif]-->
+<!--[if IE 9]><html class="ie"><![endif]-->
+<!--[if (IE 10) | (!IE)]><html><![endif]-->
+
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>创建子账户</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" href="css/goodebt.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myEb.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+	<script src="js/header.js"></script>
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="user-page">
+<!-- 公共导航栏 -->
+<header class="header">
+	<div class="container">
+        <div class="row">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <div class="row">
+                        <!--导航条头部:LOGO-->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="indexAccount.html">GoodPool.Top</a>
+                        </div>
+                        <!--登录账户以及设置-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--登录账户下拉-->
+                            <li class="dropdown">
+                              <a id="subAccount" class="dropdown-toggle active" data-toggle="dropdown" href="javascript:void(0);" role="button" aria-haspopup="true" aria-expanded="false"><span id="account" ></span><span class="caret"></span></a>
+                                <!-- <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a> -->
+                                <div class="dropdown-menu bg-white popover text-center" role="menu">
+                                    <!--下拉菜单-->
+                                    <div style="margin-bottom:20px;">
+                                        <div style="margin:10px;text-indent:30px;" class="text-muted">
+                                            BTC.com 矿池在世界各地建立了多个数据中心，每个子账户将绑定一个数据中心，算力、收益均独立结算。
+						                                            请您选择距离最近的区域，这将有助于提升连接质量。
+						                                            请您选择正确的币种，否则您的矿机可能无法正确挖矿。
+						                                            每个子账户对应固定的币种和区域，一旦创建完成，币种和区域将无法修改。如果有其他需要，可以创建新的子账户。
+                                        </div>
+                                        <button class="btn btn-primary center-block" style="margin-bottom:0;">知道了</button>
+                                    </div>
+                                </div>
+                            </li>
+                            <!--设置下拉菜单-->
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">设置</a>
+                                <div class="dropdown-menu bg-white popover text-center" role="menu" style="min-width: 110px;">
+                                    <div class="setItem text-center link"><a href="javascript:void(0)" onclick="goOut()" class="text-primary">退出登录</a> </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="main-body">
+    <!--创建子账户-->
+    <div class="container">
+        <div class="row">
+            <div class="panel" style="width:82%;margin:30px auto;padding-top:20px;">
+               <div class="panel-heading">
+                   <h3 class="panel-title">创建子账户</h3>
+               </div>
+	            <form>
+                	<!--选择币种-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">选择币种</b>
+	                    <div style="margin:20px auto;">
+	                    	<input type="radio" name="currencyType" data-labelauty="BCH" value="0005002" checked="checked"/>
+	                        <!-- <input type="radio" name="currencyType" data-labelauty="BTC" value="0005001"/> -->
+	                        <p class="help-block text-muted" style="margin-top:10px;">BTC.com现已支持比特币(BTC)、比特币现金(BCH)挖矿，更多币种即将推出，敬请期待。</p>
+	                    </div>
+	                </div>
+	                <!--子账户名称-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">设置子账户名称</b>
+	                    <div class="">
+	                        <div class="form-group">
+	                            <input id="accountName" required name="accountName" type="text" class="form-control" style="width:30%;margin-top:15px;" placeholder="请输入子账户名称"/>
+	                        </div>
+	                        <p class="help-block text-muted">您设置的子账户将绑定于所选地区。您最多可设置500个子账户。这一子账户名称加上矿机编号即为矿机设置页的矿机名（worker name），如: "zizhanghu.001"，"zizhanghu.002"。</p>
+	                        <p class="help-block text-muted">* 请注意，同一子账户不支持跨地区挖矿，您创建于当前地区的子账户在其他区域不存在。如果您在其他地区拥有矿机，请重新创建对应地区的子账户。</p>
+	                    </div>
+	                </div>
+	                <!--填写提币地址-->
+	                <div class="panel-body luckyCoins">
+	                    <b style="font-size:16px;">填写提币地址（选填）</b>
+	                    <div class="">
+	                        <div class="form-group">
+	                            <input type="text" id="address" name="btcAddress" class="form-control" style="width:30%;margin-top:15px;" placeholder="请输入收款地址"/>
+	                        </div>
+	                    </div>
+	                </div>
+	                <!--保存并且提交登陆-->
+	                <div class="panel-body luckyCoins">
+	                    <button type="button" id="creatAccount"  class="btn btn-primary" onclick="checkCreatAccount()">保存并登陆</button>
+	                    <p id="codeError" class="help-block text-danger" style="display:none;">请填写正确的信息！</p>
+	                    <p class="text-warning" style="margin-top:15px;">注：比特币现金（BCH）旧格式地址与比特币（BTC）地址相似，请谨慎填写，以免造成丢币损失。</p>
+	                </div>
+	            </form>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-ft ft-fixed">
+    <div class="container">
+        <div class="row">
+            <div class="footBox">
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>关于BTC.com</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/btc.js"></script>
+<script>
+    $(function(){
+        $(':input').labelauty();
+    });
+</script>
+</body>
+</html>

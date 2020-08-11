@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<!--[if lte IE 8]><html class="ie"><![endif]-->
+<!--[if IE 9]><html class="ie"><![endif]-->
+<!--[if (IE 10) | (!IE)]><html><![endif]-->
+
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>统计页面</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" href="css/goodebt.css"/>
+    <script type="text/javascript" src="js/echarts.common.min.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/myEb.js"></script>
+	<script type="text/javascript" src="js/poolEcharts.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    
+    <![endif]-->
+	<style>
+	.ie #luckVal div{display:inline-block;width:30%;}
+	</style>
+
+</head>
+<body class="user-page info-page moblie-pages-item">
+<header class="header">
+	<div class="container">
+        <div class="row">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <div class="row">
+                        <!--导航条头部:LOGO-->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="userPane.html">GoodPool.Top</a>
+                        </div>
+                        <!--导航菜单-->
+                        <ul class="nav navbar-nav">
+                            <li><a href="userPane.html">用户面板</a></li>
+                            <li><a href="machine.html">矿机</a></li>
+                            <li><a href="Info.html">统计</a></li>
+                        </ul>
+                        <!--登录账户以及设置-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--登录账户下拉-->
+                            <li class="dropdown">
+                                <a id="subAccount" class="active" href="javascript:void(0);"><span id="account" ></span><span class="caret"></span></a>
+                                <div id="subAccountMeanu" class="bg-white popover" style="width:360px;"></div></li>
+                            <!--设置下拉菜单-->
+                            <li class="dropdown">
+                                <a id="setBtn" href="javascript:void(0);">设置</a>
+                                <div id="setMeanu" class="bg-white popover text-center" style="width:150px;"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="main-body">
+    <div class="container moblie-bar">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="userPane.html">首页</a></li>
+                <li class="active">统计</li>
+            </ol>
+        </div>
+    </div>
+    <div class="container moblie-info-box">
+        <div class="row">
+            <!--左侧-->
+            <div class="btcBox">
+                <b class="fz16">比特币</b>
+               	<div id="btcMoney"></div>
+            </div>
+            <!--右侧
+            <div class="bchBox">
+                <b class="fz16">比特币现金/BCH</b>
+                <div style="margin-top:20px;">
+                    <span class="cls">算力</span>
+                    <span class="fr cls"><em class="clb em">164000</em>&nbsp;PH/s</span>
+                </div>
+                <div>
+                    <span class="cls">矿机</span>
+                    <span class="fr cls clb">11079</span>
+                </div>
+                <div>
+                    <span class="cls">挖矿所得</span>
+                    <span class="fr cls"><em class="clb em">26296 </em>BCH</span>
+                </div>
+            </div>-->
+            <!--算力图表1-->
+            <div class="panel" style="margin-top:20px;">
+                <div class="panel-heading">
+                    <h3 class="panel-title">比特币算力图表</h3>
+                    <div style="margin:10px 0;" class="report1">
+                        <button class="btn-report" onclick="ajaxDayChart();">1天</button>
+                        <button class="btn-report active" onclick="ajaxHourChart();">1小时</button>
+                    </div>
+                </div>
+                <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                <div id="poolChart" class="info-chart"></div>
+            </div>
+            <!--比特币幸运值-->
+            <div class="container" style="margin-top:20px;">
+                <div class="row">
+                    <div class=" panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">比特币幸运值</h3>
+                        </div>
+                        <div class="panel-body luckyCoins" id="luckVal">
+                            <div class="luckyVal1">3日 <h4 class="clb"><img style="max-width:20px;" src="img/loading.gif"/></h4></div><div class="luckyVal2">7日 <h4 class="clb"><img style="max-width:20px;" src="img/loading.gif"/></h4></div><div class="luckyVal3">30日 <h4 class="clb"><img style="max-width:20px;" src="img/loading.gif"/></h4></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--比特币现金幸运值
+            <div class="container" style="margin-top:20px;">
+                <div class="row">
+                    <div class=" panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">比特币现金幸运值</h3>
+                        </div>
+                        <div class="panel-body luckyCoins">
+                            <div>
+                                3日 <h4 class="clb">96.09%</h4>
+                            </div>
+                            <div>
+                                7日 <h4 class="clb">93.24%</h4>
+                            </div>
+                            <div>
+                                30日 <h4 class="clb">88.34%</h4>
+                            </div>
+                            <div>
+                                90日 <h4 class="clb">99.04%</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</section>
+<footer class="bg-ft ft-fixed">
+    <div class="container">
+        <div class="row">
+            <div class="footBox">
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>关于BTC.com</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/btc.js"></script>
+<script type="text/javascript" src="js/echarts-theme.js"></script>
+
+</body>
+</html>

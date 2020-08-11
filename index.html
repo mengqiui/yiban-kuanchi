@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta http-equiv="Page-Enter" contect="revealTrans(duration=2.0,transtion=23)" content="no-cache">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>顶好矿池 GoodPool.Top 最棒的比特币矿池</title>
+    <link rel="stylesheet" type="text/css" href="static/css/ebit.css">
+    <link rel="stylesheet" href="static/css/goodebt.css"/>
+    <script type="text/javascript" src="static/js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="static/js/echarts.common.min.js"></script>
+    <script type="text/javascript" src="static/js/myEb.js"></script>
+    
+    <!--[if lt IE 9]>
+	    <script src="static/js/html5shiv.min.js"></script>
+	    <script src="static/js/respond.min.js"></script>
+	    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <![endif]-->
+   
+</head>
+<body class="landing-page">
+    <header class="header">
+        <div class="container">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <!--导航条头部:LOGO-->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="javascript:void(0);">GoodPool.Top</a>
+                    </div>
+                    <!--导航菜单-->
+                    <!-- <div class="">
+                        <ul class="nav nav-pills navbar-right">
+                            <li><a href="Info.jsp">统计</a></li>
+                            <li><a href="javascript:void(0);">工具</a></li>
+                            <li><a href="javascript:void(0);">客服</a></li>
+                            <li><a href="javascript:void(0);">帮助</a></li>
+                        </ul>
+                    </div> -->
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="main-body index" style="padding-bottom:0;">
+        <!--头部：导航+banner-->
+        <div class="hero hero1">
+            <div class="container">
+                <div class="row hero-container">
+                    <!--宣传文案-->
+                    <div class="highlight">
+                        <h1 class="ftbv">GoodPool.Top，我们重新定义矿池！</h1>
+                        <p>
+                            <span class="fee">
+                                <h2 class="link-fpps ftbv">开年饕餮盛宴，GoodPool.Top豪礼送不停!</h2>
+                            </span>
+                        </p>
+                    </div>
+                    <!--登录注册-->
+                    <div class="login-box">
+                        <div class="login-box-links">
+                            <a class="btn-login login" href="static/login.html">登 录</a>
+                            <a class="btn-login register" href="static/regist.html">马上注册</a>
+                            <span class="leader" style="margin-top: 15px;">直接联系客服</span>
+                            <span class="leader leader-number">400-890-8855 </span>
+                            <span class="leader">语音提示后选1再选3</span>
+                        </div>
+                    </div>
+                    <!-- 轮播图 
+                    <div class="news-slide">
+                        <div id="newsPanel" class="carousel slide" data-ride="carousel" data-interval="6000">
+                            --><!-- Indicators -->
+                           <!--   <ol class="carousel-indicators">
+                                <li data-target="#newsPanel" data-slide-to="0" class="active"></li>
+                                <li data-target="#newsPanel" data-slide-to="1"></li>
+                                <li data-target="#newsPanel" data-slide-to="2"></li>
+                            </ol>-->
+
+                            <!-- Wrapper for slides -->
+                            <!-- <div class="carousel-inner" role="listbox">
+                                <div class="item active">
+                                    <a href="javascript:void(0);" target="_blank">BTC.com矿池关于比特币现金版本升级及更名的通知</a>
+                                    <span style="float: right;color:#fff;">2018.01.05 14:00:00</span>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:void(0);" target="_blank">BTC.com矿池关于免费交易加速补偿的公告</a>
+                                    <span style="float: right;color:#fff;">2018.01.09 21:00:00</span>
+                                </div>
+                                <div class="item">
+                                    <a href="javascript:void(0);" target="_blank">BTC.com矿池开启可选性限额支付功能</a>
+                                    <span style="float: right;color:#fff;">2018.01.09 19:00:00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+        <!--页体-->
+        <div style="margin-bottom:80px;">
+	        <div class="container">
+	            <!--2块报表，border-->
+	            <div class="row">
+	                <div class="bg-report" style="margin-top:-50px;">
+	                    <div class="reportChart">
+	                        <div class="col-xs-12"><b style="font-size:16px;">比特币算力图表</b></div>
+	                    </div>
+	                    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+	                    <div id="poolChart"></div>
+	                </div>
+	                <!--<div class="bg-report" style="margin-top:20px;box-shadow: 0 0 8px 0 rgba(0,0,0,.2)">
+	                    <div style="height:50px;">
+	                        <div class="col-xs-offset-1 col-xs-2"><b style="font-size:16px;">比特币现金算力图表</b></div>
+	                        <div class="col-xs-5 text-center"><span class="V">3.785</span><span class="K">EH/s</span><span class="K">丨</span><span class="V">253644</span><span class="K">在线矿机</span></div>
+	                        <div class="col-xs-4"><span class="K">已挖:</span><span class="V">6200</span><span class="K">区块</span><span class="V">90598</span><span class="K">BTC</span></div>
+	                    </div>
+	                     	为 ECharts 准备一个具备大小（宽高）的 DOM
+	                    <div id="report2" style="width:100%;height:300px;"></div> -->
+	                </div>
+	            </div>
+	          <!--核心技术-->
+	          <div class="leader-technology">
+	              <div class="container">
+	                 <div class="row">
+	                     <div class="center-block text-center">
+	                         <h1 style="color:black;">领先的核心技术</h1>
+	                         <div class="keyTech ">
+	                             <div>
+	                                 <img src="static/img/new-icon.png" alt="新技术"/>
+	                                 <p>最新原创架构<br/>俯瞰百家所长</p>
+	                             </div>
+	                             <div>
+	                                 <img src="static/img/cat.png" alt="新技术"/>
+	                                 <p>最新原创架构<br/>俯瞰百家所长</p>
+	                             </div>
+	                             <div>
+	                                 <img src="static/img/menu.png" alt="新技术"/>
+	                                 <p>最新原创架构<br/>俯瞰百家所长</p>
+	                             </div>
+	                             <!-- <div>
+	                                 <img src="static/img/shan.png" alt="新技术"/>
+	                                 <p>最新原创架构<br/>俯瞰百家所长</p>
+	                             </div> -->
+	                             <div>
+	                                 <img src="static/img/newruanjian.png" alt="新技术"/>
+	                                 <p>最新原创架构<br/>俯瞰百家所长</p>
+	                             </div>
+	                         </div>
+	                     </div>
+	                 </div>
+	              </div>
+	          </div>
+	          <!--行业标准-->
+	          <div class="standard clearfix">
+	              <h1 class="text-center">矿业服务新标准</h1>
+	              <!--客户电话-->
+	              <div class="standard-tel">
+	                 <img src="static/img/tel.png" alt="行业服务标准" class="center-block"/>
+	                 <div class="custom-tel clearfix">
+	                     <span class="telTxt">客服电话</span><span class="telIp">400-890-8855</span>
+	                 </div>
+	                 <div class="custom-tel clearfix">
+	                     <span class="telTxt">大客户招商</span><span class="telIp">185-1385-2718</span>
+	                 </div>
+	              </div>
+	              <!--行业服务标准-->
+	              <div class="standard-server">
+	                  <ul>
+	                      <li><i class="certRight"></i> 真正有专业客服的矿池</li>
+	                      <li style="margin-top:25px;"><i class="certRight"></i> 业内最高规格VIP服务器</li>
+	                      <li style="margin-top:25px;"><i class="certRight"></i> 业内顶尖研究者一对一分析案例</li>
+	                  </ul>
+	                  <ul>
+	                      <li><i class="certRight"></i> 矿池App让你躺着管理</li>
+	                      <li style="margin-top:25px;"><i class="certRight"></i> 准点打款 风雨无阻</li>
+	                      <li style="margin-top:25px;"><i class="certRight"></i> 首个由跨国团队支持的矿池</li>
+	                  </ul>
+	              </div>
+	          </div>
+	      </div>
+    </section>
+    <footer class="bg-ft ft-fixed">
+        <div class="container">
+            <div class="row">
+                <div class="footBox col-sm-12">
+                    页尾
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script type="text/javascript" src="static/js/echarts-theme.js"></script>
+	<script type="text/javascript" src="static/js/poolEcharts.js"></script>
+    <script type="text/javascript" src="static/js/btc.js"></script>
+    <script>
+	  //比特币矿池图表
+	    $(function(){
+            chartData();
+            
+        });
+    </script>
+</body>
+</html>

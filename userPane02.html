@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>用户面板</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" href="css/goodebt.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myEb.js"></script>
+    <script src="js/echarts.common.min.js"></script>
+    <script src="js/layer/layer.js"></script>
+	<script src="js/accountEcharts.js?v=1"></script>
+	<script src="js/echarts-theme.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+        @media (max-width:767px){
+        .main-body{overflow-x: hidden;}
+        .moblie-bar{display: none;}
+        .moblie-notice{display: none;}
+        .user-page .main-body .threeBox{display:block;}
+        .currentCal,.millTotal,.earnData{width:80%;padding:0px;margin:20px auto;}
+        .afterServe{width:80%;padding:0px;margin:10px auto;}
+        .earnAddress{width:80%;padding:0px;margin:10px auto;}
+        .userEcharts{height:260px;}
+        .calCharts{width:80%;padding:0px;margin:0 auto;}
+        .fourMod{margin-top: -10px; margin-bottom: -10px;}
+        .navbar {border-radius: 4px;}
+        .navbar-header {float: left;}
+        .navbar-nav {float: left;margin: 0;}
+        }
+    </style>
+</head>
+<body class="user-page moblie-pages-item">
+<header class="header">
+	<div class="container">
+        <div class="row">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <div class="row">
+                        <!--导航条头部:LOGO-->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="userPane.html">GoodPool.Top</a>
+                        </div>
+                        <!--导航菜单-->
+                        <ul class="nav navbar-nav">
+                            <li><a href="userPane.html">用户面板</a></li>
+                            <li><a href="machine.html">矿机</a></li>
+                            <li><a href="Info.html">统计</a></li>
+                        </ul>
+                        <!--登录账户以及设置-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--登录账户下拉-->
+                            <li class="dropdown">
+                                <a id="subAccount" class="active" href="javascript:void(0);"><span id="account"></span><span class="caret"></span></a>
+                                <div id="subAccountMeanu" class="bg-white popover" style="width:360px;"></div></li>
+                            <!--设置下拉菜单-->
+                            <li class="dropdown">
+                                <a id="setBtn" href="javascript:void(0);">设置</a>
+                                <div id="setMeanu" class="bg-white popover text-center" style="width:150px;"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="main-body">
+    <div class="container moblie-bar">
+        <div class="row">
+            <ol class="breadcrumb">
+                <li><a href="#">首页</a></li>
+                <li class="active">用户面板</li>
+            </ol>
+        </div>
+    </div>
+    <!--注意-->
+    <div class="container moblie-notice">
+        <div class="row">
+            <div class=" panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">您需要添加矿机到矿池，然后开始挖矿。推荐使用 GoodPool.Top 矿池</h3>
+                </div>
+                <div class="panel-body luckyCoins" style="padding-top:0;">
+                    <p class="text-muted">连接矿机所在的局域网，登录矿机后台，填写您的子账户（密码建议留空），保存即可，矿机将在一分钟内自动添加到矿池网站页面。</p>
+                    <p class="text-muted">矿机名规则为：子账户+英文句号+编号，例如，您的子账户是MQbtc, 可以设置矿机名为MQbtc.001、MQbtc.002，以此类推，一个矿机名对应一台矿机。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--三小块：实时算力、矿机数、BTC收益-->
+    <div class="container" style="padding:0 0;" id="thrMod">
+        <div class="row threeBox" id="threeData">
+        	 <!--实时算力-->
+        	 <div id="timeCal" class="panel currentCal">
+        		<div class="panel-heading text-center">
+                	<h3 class="panel-title">BCH 实时算力</h3>
+                </div>
+                <hr class="user-page-hr"/>
+                <div class="panel-body counts">
+	                <div class="calTime text-muted">实时 <p class="clb" style="font-size:28px;"><img src="img/loading.gif"/></p></div>
+	                <div class="calTime fr text-muted">24小时 <p class="clb" style="font-size:28px;"><img src="img/loading.gif"/></p></div>
+                </div>
+             </div>
+             <!--矿机数-->
+             <div id="millNum" class="panel clearfix millTotal">
+                <div class="panel-heading text-center"><h3 class="panel-title">矿机数</h3></div>
+                <hr class="user-page-hr"/>
+                <div class="panel-body counts">
+	                <div class="calTime text-muted">活跃 <p class="clb" style="font-size:20px;"><img src="img/loading.gif"/></p></div>
+	                <div class="calTime fr text-muted">非活跃 <p class="clb" style="font-size:20px;"><img src="img/loading.gif"/></p></div>
+                </div>
+             </div>
+             <!--收益-->
+             <div id="earn" class="panel earnData">
+                <div class="panel-heading text-center"><h3 class="panel-title">BCH收益</h3></div>
+                <hr class="user-page-hr"/>
+                <div class="panel-body counts">
+                    <div class="calTime text-muted">今日预估 <p class="clb" style="font-size:28px;"><img src="img/loading.gif"/></p></div>
+                    <div class="calTime fr text-muted">昨日实收 <p class="clb" style="font-size:28px;"><img src="img/loading.gif"/></p></div>
+                </div>
+             </div>
+        </div>
+    </div>
+    <!--算力图表-->
+    <div class="container calCharts">
+        <div class="row">
+            <!--算力图表1-->
+            <div class="container">
+                <div class="row">
+                    <div class="panel">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">算力图表</h3>
+                            <div style="margin:10px 0;" class="report1 userPaneBtn">
+                                <button class="btn-report" onclick="ajaxDaySubChart()">1天</button>
+                                <button class="btn-report active" onclick="ajaxHourSubChart()">1小时</button>
+                            </div>
+                        </div>
+                        <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
+                        <div id="subChart" class="userEcharts"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--收益，矿址，网络状态，售后-->
+    <div class="container fourMod" style="padding:0 0;">
+        <div class="row threeBox">
+            <!--收益-->
+            <div class="panel earnAddress" id="panelCome">
+                <div class="panel-heading">
+                    <h3 class="panel-title">账户收益</h3>
+                </div>
+                <div class="panel-body fourBox" id="income">
+                    <ul class="list-unstyled">
+                        <li class="text-muted">余额<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <li class="text-muted">已支付<a href="historyEarning.html" class='text-primary' style="margin-left:5px;font-size:12px;">支付记录</a><em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <hr/>
+                        <li class="text-muted">上一次支付时间<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <li class="text-muted">待确认支付<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                    </ul>
+                </div>
+            </div>
+            <!--地址-->
+            <div class="panel earnAddress">
+                <div class="panel-heading">
+                    <h3 class="panel-title">挖矿地址</h3>
+                </div>
+                <div class="panel-body fourBox">
+                    <ul class="list-unstyled">
+                        <li class="text-muted clb">sz.ss.btc.com:1800</li>
+                        <li class="text-muted clb">sz.ss.btc.com:443</li>
+                        <li class="text-muted clb">sz.ss.btc.com:25</li>
+                        <li class="text-muted clb" style="margin-top:15px;">矿机名设置参考："MQbtc.001", "MQbtc.002".</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container fourMod" style="padding:0 0;">
+        <div class="row threeBox">
+            <!--网络状态-->
+            <div class="panel afterServe">
+                <div class="panel-heading">
+                    <h3 class="panel-title">网络状态</h3>
+                </div>
+                <div class="panel-body fourBox" id="network">
+                    <ul class="list-unstyled">
+                        <li class="text-muted">全网算力<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <li class="text-muted">矿池算力<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <li class="text-muted">BCH 每T收益<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <!-- <li class="text-muted">当前难度<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li>
+                        <li class="text-muted">预测下次难度<em class="em fr clb"><img style="max-width:20px;" src="img/loading.gif"/></em></li> -->
+                    </ul>
+                </div>
+            </div>
+            <!--售后服务-->
+            <div class="panel afterServe">
+                <div class="panel-heading ">
+                    <h3 class="panel-title">售后服务</h3>
+                </div>
+                <div class="panel-body fourBox">
+                    <ul class="list-unstyled">
+                        <li class="text-muted">XXX<em class="em fr clb">-BTC</em></li>
+                        <li class="text-muted">XXX<em class="em fr clb">-BTC</em></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-ft ft-fixed">
+    <div class="container">
+        <div class="row">
+            <div class="footBox">
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a >联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>关于BTC.com</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script src="js/header.js?v=1"></script>
+<script src="js/btc.js?v=1"></script>
+
+</body>
+</html>

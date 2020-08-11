@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>收益记录</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css"/>
+    <link rel="stylesheet" href="css/goodebt.css"/>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="js/myEb.js"></script>
+    <script type="text/javascript" src="js/layer/layer.js"></script>
+	<style type="text/css">
+		.prePageHref a{color:#000;}
+		.pagination a{color: #000;}
+		.pagination > li > a.cur{z-index: 3;color: #fff;background-color: #337ab7;border-color: #dddddd;}
+	</style>
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="history-page user-page moblie-pages-item">
+<header class="header">
+	<div class="container">
+        <div class="row">
+            <!--nav-->
+            <nav id="nav" class="navbar">
+                <div class="container">
+                    <div class="row">
+                        <!--导航条头部:LOGO-->
+                        <div class="navbar-header">
+                            <a class="navbar-brand" href="userPane.html">GoodPool.Top</a>
+                        </div>
+                        <!--导航菜单-->
+                        <ul class="nav navbar-nav">
+                            <li><a href="userPane.html">用户面板</a></li>
+                            <li><a href="machine.html">矿机</a></li>
+                            <li><a href="Info.html">统计</a></li>
+                            <!-- <li><a href="#">工具</a></li>
+                            <li><a href="#">客服</a></li>
+                            <li><a href="#">帮助</a></li> -->
+                        </ul>
+                        <!--登录账户以及设置-->
+                        <ul class="nav navbar-nav navbar-right">
+                            <!--登录账户下拉-->
+                            <li class="dropdown">
+                                <a id="subAccount" class="active" href="javascript:void(0);"><span id="account" ></span><span class="caret"></span></a>
+                                <div id="subAccountMeanu" class="bg-white popover" style="width:360px;"></div></li>
+                            <!--设置下拉菜单-->
+                            <li class="dropdown">
+                                <a id="setBtn" href="javascript:void(0);">设置</a>
+                                <div id="setMeanu" class="bg-white popover text-center" style="width:150px;"></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<section class="main-body moblie-history">
+    <div class="container moblie-bar">
+        <div class="row">
+            <div class="col-sm-12">
+                <ol class="breadcrumb">
+                    <li><a href="userPane.html">首页</a></li>
+                    <li class="active">收益记录</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!--收益记录-->
+    <div class="container">
+        <div class="row">
+            <div class="visible-sm visible-xs-block col-xs-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <h3 class="panel-title"><a href="javascript:history.go(-1)" class="glyphicon glyphicon-menu-left moblie-back"></a>历史收益</h3>
+                    </div>
+                </div>
+            </div>
+            <!--已支付-->
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body luckyCoins">
+                        <ul class="list-unstyled" id="paid"></ul>
+                    </div>
+                </div>
+            </div>
+            <!--预估-->
+            <div class="col-sm-6 col-xs-12">
+                <div class="panel">
+                    <div class="panel-body luckyCoins">
+                        <ul class="list-unstyled" id="forecast"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input type="hidden" value="1" id="pageNo"/>
+    <input type="hidden" value="" id="orderF"/>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-xs-12">
+                <div class="bg-white">
+                    <div class="table-responsive bg-white panel" style="padding:10px;">
+                        <table class="table table-striped " id="earnTable">
+                            <thead>
+                                <tr>
+                                    <th class="text-muted text-center tableSort" onclick="sortFunc(this,'reportDate')">收益时间<span>&uarr;&darr;</span></th>
+                                    <th class="text-muted text-center tableSort" onclick="sortFunc(this,'btc')">收益的<b id="tableType">BCH</b><span>&uarr;&darr;</span></th>
+                                    <th class="text-muted text-center tableSort" onclick="sortFunc(this,'workload')">工作量<span>&uarr;&darr;</span></th>
+                                    <th class="text-muted text-center tableSort" onclick="sortFunc(this,'netDifficuty')">全网难度hash值<span>&uarr;&darr;</span></th>
+                                    <th class="text-muted text-center tableSort" onclick="sortFunc(this,'height')">区块高度<span>&uarr;&darr;</span></th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyData"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">
+                                        <ul class="pagination pull-right"></ul>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="moblie-pages" style="text-align: center;padding:10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer class="bg-ft ft-fixed">
+    <div class="container">
+        <div class="row">
+            <div class="footBox">
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>关于BTC.com</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+                <ul class="list-unstyled">
+                    <li>联系BTC.com矿池</li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                    <li><a href="javascript:void(0);">联系我们</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script type="text/javascript" src="js/header.js"></script>
+<script type="text/javascript" src="js/btc.js"></script>
+<script type="text/javascript" src="js/historyEarning.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>顶好矿池 GoodPool.Top 最棒的比特币矿池</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" href="css/goodebt.css"/>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myEb.js"></script>
+    <script src="js/layer/layer.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="js/html5shiv.min.js"></script>
+    <script src="js/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+    .moblie-page{background-color:#fff;}
+    </style>
+</head>
+<body class="moblie-page moblie-pages-item">
+<section class="moblie-body">
+    <div class="panel">
+        <div class="panel-heading">
+            <!-- 用户头像 -->
+            <div class="user-img"><img src="img/head_default.png" alt="用户默认头像"></div>
+            <!-- 账户 -->
+            <div class="user-account" id="userMoblie"></div>
+            <!-- 设置图标 -->
+        </div>
+        <div class="panel-body">
+            <!-- <ul class="list-group">
+                <li class="list-group-item">当前账户：</li>
+                <li class="list-group-item">18525564803</li>
+            </ul> -->
+            <ul class="list-group">
+                <li class="list-group-item">当前子账户<span class="time-right" id="nowAccount"></span></li>
+                <li class="list-group-item clearfix" onclick="location.href='manageAccount.html'"><span class="right-cert"></span>子账户管理</li>
+                <li class="list-group-item" onclick="location.href='createAccount.html'"><span class="right-cert"></span>创建子账户</li>
+                <li class="list-group-item" id="checkList"><span class="bottom-cert"></span>子账户列表</li>
+                <!-- 子账户列表，点击加载 -->
+                <div id="listBox">
+                    <!-- <div class="well account-list">
+                            <div>
+                                <p><b>子账户名称：<em class="em subName">test01</em></b></p>
+                                <p>
+                                    <span style="margin-right:20px;">当前模式：BCH</span> 
+                                    <span>昨日总收益：0</span>
+                                    <a href="javascript:void(0);" onclick="changeAccount(this)" class="text-primary fr" style="font-size:14px;">进入</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="well account-list">
+                            <div>
+                                <p><b>子账户名称：<em class="em subName">test01</em></b></p>
+                                <p>
+                                    <span style="margin-right:20px;">当前模式：BCH</span> 
+                                    <span>昨日总收益：0</span>
+                                    <a href="javascript:void(0);" onclick="changeAccount(this)" class="text-primary fr" style="font-size:14px;">进入</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="well account-list">
+                            <div>
+                                <p><b>子账户名称：<em class="em subName">test01</em></b></p>
+                                <p>
+                                    <span style="margin-right:20px;">当前模式：BCH</span> 
+                                    <span>昨日总收益：0</span>
+                                    <a href="javascript:void(0);" onclick="changeAccount(this)" class="text-primary fr" style="font-size:14px;">进入</a>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="well account-list">
+                            <div>
+                                <p><b>子账户名称：<em class="em subName">test01</em></b></p>
+                                <p>
+                                    <span style="margin-right:20px;">当前模式：BCH</span> 
+                                    <span>昨日总收益：0</span>
+                                    <a href="javascript:void(0);" onclick="changeAccount(this)" class="text-primary fr" style="font-size:14px;">进入</a>
+                                </p>
+                            </div>
+                        </div> -->
+                </div>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item" onclick="btcGathering()"><span class="right-cert"></span>BCH收款地址</li>
+                <li class="list-group-item" onclick="location.href='historyEarning.html'"><span class="right-cert"></span>历史收益</li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item" onclick="location.href='userCenter-tel.html'"><span class="right-cert"></span>修改手机号</li>
+                <li class="list-group-item" onclick="location.href='userCenter-pwd.html'"><span class="right-cert"></span>修改密码</li>
+                <li class="list-group-item">最后登录时间<span class="time-right" id="loginHist"></span></li>
+            </ul>
+            <ul class="list-group">
+                <li class="list-group-item" onclick="goOut()">退出登录</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<script src="js/btc.js?v=1"></script>
+<script>
+    $(function(){
+        if (hasUserInfo) {
+            $("#nowAccount").text(userName)
+        }else{
+            layer.msg("哎呀，您还没有登陆，5秒后自动跳转登陆页！", {icon: 5,time: 5000},
+            function() {
+                location.href = url + "/static/login.html"
+            })
+        }
+        userCenterInfo();
+        var dnum = 0;
+        $("#checkList").bind("click",function() {
+            dnum = dnum + 1;
+            if (dnum % 2 != 0) {
+                moblieList(subPageNo, 5);
+                $("#listBox").slideDown("slow");
+                $("#checkList span").addClass("top-cert");
+            } else {
+                $("#listBox").slideUp("fast");
+                $("#checkList span").removeClass("top-cert");
+            }
+        })
+    });
+
+var subTotal;
+var subPageNo = 1;
+function moblieList(pageNo, pageSize) {
+    $.ajax({
+        type: "POST",
+        url: url + "/api/auth/getAllSubAccount.do",
+        data: {
+            accountStatus: "0003001",
+            pageNo: pageNo,
+            pageSize: pageSize
+        },
+        beforeSend: function() {
+            $("#listBox").append('<div id="loadingAct" class="text-center" style="margin:10px;padding:10px;border:1px solid #f5f5f5;color:#777;"><img src="img/loading.gif"/><span style="margin-left:10px;">信息加载中……</span></div>')
+        },
+        success: function(result) {
+            var subHtml = "";
+            if (result.code == 10000) {
+                subTotal = Math.ceil((result.page.totalNum) / pageSize);
+                var accountList = result.data;
+                var userAccountName = accountList[0].belongUser;
+                handleStorage("user_tel", userAccountName);
+                var accName, curType;
+                for (var i = 1; i < accountList.length; i++) {
+                    $.each(accountList[i],
+                    function(key, val) {
+                        accName = accountList[i].accountName;
+                        curType = accountList[i].currencyType
+                    });
+                    var dic = new Array();
+                    dic["0005002"] = "BCH";
+                    dic["0005001"] = "BTC";
+                    for (var key in dic) {
+                        if (key == curType) {
+                            curType = dic[key].toUpperCase()
+                        }
+                    }
+                    subHtml += '<div class="well account-list"><div><p><b>子账户名称：<em class="em subName">'+accName+'</em></b></p><p><span style="margin-right:20px;">当前模式：' + curType + '</span>';
+                    subHtml += '<span>昨日总收益：' + accountList[i].yesterdayProfit + '</span><a href="javascript:void(0);" onclick="changeAccount(this)" class="moblie-text fr" style="font-size:14px;">进入</a></p></div></div>';
+                }
+                if (subTotal > 1 && pageNo != subTotal) {
+                    subHtml += '<div id="addMore"></div><div style="padding:0 10px 10px 10px;" class="text-center"><div><a href="javascript:void(0);" id="addInfo" class="moblie-text" onclick="ajaxMore()">加载更多账号信息</a></div></div></div>'
+                } else {
+                    subHtml += '<div id="addMore" style="padding:10px;"></div><div style="padding:10px;" class="text-center"><div><a href="javascript:void(0);" id="addInfo" class="moblie-text" onclick="ajaxMore()">没有更多子账号信息啦！</a></div></div></div>'
+                }
+                $("#listBox").empty();
+                $("#listBox").append(subHtml);
+                return subTotal
+            } else {
+                if (result.code == 10301) {
+                    $("#listBox").empty();
+                    $("#listBox").append('<div class="alert alert-danger text-center" style="margin:10px;padding:10px; font-size:16px;font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;" role="alert"><a href="#" class="alert-link">您还未创建子账户！</a></div>')
+                } else {
+                    $("#listBox").empty();
+                    $("#listBox").append('<div class="alert alert-danger text-center" style="margin:10px;padding:10px; font-size:16px;font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;" role="alert"><a href="#" class="alert-link">加载出错,请刷新页面重新加载！</a></div>')
+                }
+            }
+        },
+        error: function() {
+            $("#listBox").empty();
+            $("#listBox").append('<div class="alert alert-danger text-center" style="margin:10px;padding:10px; font-size:16px;font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;" role="alert"><a href="#" class="alert-link">加载出错,请退出重新登录！</a></div>')
+        }
+    })
+}
+function ajaxMore() {
+    subPageNo++;
+    if (subPageNo <= subTotal) {
+        ajaxMoreFuc(subPageNo, 5)
+    }
+}
+function ajaxMoreFuc(pageNo, pageSize) {
+    $.ajax({
+        type: "POST",
+        url: url + "/api/auth/getAllSubAccount.do",
+        data: {
+            accountStatus: "0003001",
+            pageNo: pageNo,
+            pageSize: pageSize
+        },
+        beforeSend: function() {
+            $("#addInfo").parent().parent().append('<div id="loadingAct" class="text-center" style="margin:10px;padding:10px;border:1px solid #f5f5f5;color:#777;"><img src="img/loading.gif"/><span style="margin-left:10px;">信息加载中……</span></div>')
+        },
+        success: function(result) {
+            var subHtml = "";
+            if (result.code == 10000) {
+                subTotal = Math.ceil((result.page.totalNum) / pageSize);
+                var accountList = result.data;
+                var accName, curType;
+                for (var i = 1; i < accountList.length; i++) {
+                    $.each(accountList[i],
+                    function(key, val) {
+                        accName = accountList[i].accountName;
+                        curType = accountList[i].currencyType
+                    });
+                    var dic = new Array();
+                    dic["0005002"] = "BCH";
+                    dic["0005001"] = "BTC";
+                    for (var key in dic) {
+                        if (key == curType) {
+                            curType = dic[key].toUpperCase()
+                        }
+                    }
+                    subHtml += '<div class="well account-list"><div><p><b>子账户名称：<em class="em subName">'+accName+'</em></b></p><p><span style="margin-right:20px;">当前模式：' + curType + '</span>';
+                    subHtml += '<span>昨日总收益：' + accountList[i].yesterdayProfit + '</span><a href="javascript:void(0);" onclick="changeAccount(this)" class="moblie-text fr" style="font-size:14px;">进入</a></p></div></div>';
+                }
+                $("#loadingAct").remove();
+                $("#addInfo").parent().parent().remove();
+                if (subTotal > 1 && pageNo != subTotal) {
+                    subHtml += '<div style="padding:10px;" class="text-center"><div><a href="javascript:void(0);" id="addInfo" class="moblie-text" onclick="ajaxMore()">加载更多账号信息</a></div></div></div>'
+                } else {
+                    if (pageNo == subTotal) {
+                        subHtml += '<div style="padding:10px;" class="text-center"><div><a href="javascript:void(0);" id="addInfo" class="text-primary" onclick="ajaxMore()">没有更多账号信息啦！</a></div></div></div>'
+                    }
+                }
+                $("#addMore").append(subHtml);
+                return subTotal
+            } else {
+                if (result.code == 10301) {
+                    $("#addMore").append('<div class="alert alert-danger text-center" style="margin:10px;padding:10px; font-size:16px;font-family: "Microsoft YaHei", "微软雅黑", Arial, sans-serif;" role="alert"><a href="#" class="alert-link">您还未创建子账户！</a></div>')
+                } else {
+                    layer.msg("加载出错,请刷新页面重新加载！", {
+                        icon: 5
+                    })
+                }
+            }
+        },
+        error: function() {
+        	layer.msg("哎呀，您还没有登陆，5秒后自动跳转登陆页！", {
+                icon: 5,
+                time: 5000
+            }, function () {
+                window.location = url + "/static/login.html"
+            })
+        }
+    })
+}
+function btcGathering() {
+    if (!hasUserInfo) {
+        layer.msg("哎呀，您还没有登陆，3秒后自动跳转登陆页！", {
+            icon: 5,
+            time: 3000
+        },
+        function() {
+            window.location = url + "/static/login.html"
+        })
+        return false;
+    } 
+    layer.prompt({
+        title: "更改地址",
+        formType: 0,
+        btn: ["下一步"],
+        content: '新地址<input type="text" class="layui-layer-input" style="margin:10px 0;"/><div class="text-danger" style="width:300px;" maxlength="50">注意：为了安全原因，修改地址后48小时内不予支付，您的收益将作为余额，在48小时后的第一个结算日支付。</div>'
+    },
+    function(value, index) {
+        var newAddress = value.trim();
+        if (newAddress == "") {
+            layer.msg("地址不能为空！", {
+                icon: 2
+            });
+            return false
+        } else {
+            layer.close(index);
+            layer.confirm("您的新地址是：" + newAddress, {
+                title: "请确认您的新地址",
+                btn: ["确认"]
+            },
+            function() {
+                $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    url: url + "/api/auth/updateSubAccount.do",
+                    data: {
+                        accountName: userName,
+                        btcAddress: newAddress
+                    },
+                    success: function(data) {
+                        if (data.code == 10000) {
+                            layer.msg(data.message, {
+                                icon: 1
+                            })
+                        } else {
+                            layer.msg(data.message, {
+                                icon: 5
+                            })
+                        }
+                        layer.close(index)
+                    },
+                    error: function() {
+                    	layer.msg('网络故障，请检查网络是否正常！', {
+                            icon: 1
+                        })
+                        layer.close(index)
+                    }
+                })
+            })
+        }
+    })
+};
+</script>
+</body>
+</html>

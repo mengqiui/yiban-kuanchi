@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+    <title>顶好矿池 GoodPool.Top 最棒的比特币矿池</title>
+    <link rel="stylesheet" type="text/css" href="css/ebit.css">
+    <link rel="stylesheet" type="text/css" href="css/goodebt.css?v=2" />
+    <!--[if lt IE 9]>
+	    <script src="js/html5shiv.min.js"></script>
+	    <script src="js/respond.min.js"></script>
+	    <script src="http://cdn.bootcss.com/jquery/1.9.0/jquery.min.js"></script>
+    <![endif]-->
+
+</head>
+<body class="bg-login loginAB">
+    <!-- 登陆盒子 -->
+    <div class="user-login clearfix">
+        <!-- 左边图片 -->
+        <div class="login-img">
+            <img src="img/login01.png" alt="GoodPool"/>
+        </div>
+        <!-- 右边登陆表单 -->
+        <div class="login-form pull-right">
+            <div class="loginBig ">
+                <div class="text-center">
+                    <h1>GoodPool.Top</h1>
+                </div>
+                <div class="form-group" style="margin-top: 12%;">
+                    <input type="text" class="form-control input-lg ipt" id="findMobile" value="" placeholder="请输入手机号" autocomplete="off" />
+                </div>
+                <div class="form-group" style="margin-top: 8%;">
+                    <input type="text" class="form-control input-lg ipt" name="code" id="findCode" placeholder="请输入验证码" autocomplete="off" />
+                    <button type="button" id="sendBtn" class="btn-reg btn-lg fr" onclick="mbe('#findMobile');">获取验证码</button>
+                    <p id="codeError" class="help-block text-danger"></p>
+                </div>
+                <div class="form-group" style="margin-top: 8%;">
+                    <input type="password" class="form-control input-lg ipt" id="Password1" placeholder="请输入密码" autocomplete="off" />
+                </div>
+                <div class="form-group" style="margin-top: 8%;">
+                    <input type="password" class="form-control input-lg ipt" id="Password2" placeholder="请再次输入密码" autocomplete="off" />
+                </div>
+                <!--传递加密后密码-->
+                <input type="hidden" name="password" id="pwd" />
+                <div class="form-group" style="margin-top: 8%;">
+                    <p id="errorTxt" class="help-block text-danger"></p>
+                    <button type="button" id="restBtn" onclick="resetPassword()" class="btn-lg bg-sub btn-block">重置密码</button>
+                </div>
+                <div class="form-group" style="margin-top: 8%;">
+                    <div class="text-center clearfix">
+                        <a href="login.html" class="fl">已有账号？立即登录</a>
+                        <a href="regist.html" class="fr">注册新账号</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/myEb.js"></script>
+    <script src="js/layer/layer.js"></script>
+    <script src="js/btc.js"></script>
+    <script>
+        $(function() {
+          var formH = $(".login-form").height();
+          $(".login-img").css('lineHeight',formH+'px').height(formH);
+          var loginH = $(".user-login").height();
+          $(".user-login").css('marginTop','-'+loginH/2+'px');
+        })
+        
+    </script>
+</body>
+
+</html>
